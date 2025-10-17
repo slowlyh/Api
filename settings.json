@@ -1,0 +1,97 @@
+{
+  "creator": "@Hyuu",
+  "whatsapp": "https://wa.me/62895622412769",
+  "github": "https://github.com/hyuuxs",
+  "youtube": "https://t.me/hiyuux",
+  "favicon": "https://files.catbox.moe/flkgnb.jpg", 
+  "apititle": "Hyuu API",
+  "endpoints": {
+  "openai": [
+    {
+      "name": "OSS",
+      "desc": "OSS ai",
+      "method": "GET",
+      "status": "Active",
+      "path": "/ai/oss?text="
+    }
+  ],
+  "downloader": [
+    {
+      "name": "Capcut",
+      "desc": "Downloader capcut",
+      "method": "GET",
+      "status": "Active",
+      "path": "/download/capcut?url="
+    },
+    {
+      "name": "Facebook",
+      "desc": "Downloader facebook",
+      "method": "GET",
+      "status": "Active",
+      "path": "/download/facebook?url="
+    },
+    {
+      "name": "SnackVideo",
+      "desc": "Downloader snack video",
+      "method": "GET",
+      "status": "Active",
+      "path": "/download/snackvideo?url="
+    },
+    {
+      "name": "Twitter",
+      "desc": "Downloader twitter",
+      "method": "GET",
+      "status": "Active",
+      "path": "/download/x?url="
+    },
+    {
+      "name": "Mediafire",
+      "desc": "Downloader mediafire",
+      "method": "GET",
+      "status": "Active",
+      "path": "/download/mediafire?url="
+    }
+  ],
+  "random": [
+    {
+      "name": "Blue Archive",
+      "desc": "Random foto blue archive",
+      "method": "GET",
+      "status": "Active",
+      "path": "/random/ba"
+    },
+    {
+      "name": "Random Waifu",
+      "desc": "Random foto waifu",
+      "method": "GET",
+      "status": "Active",
+      "path": "/random/waifu"
+    },
+    {
+      "name": "Pap Ayang",
+      "desc": "Random pap ayang",
+      "method": "GET",
+      "status": "Active",
+      "path": "/random/papayang"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Unblur",
+      "desc": "Convert image to unblur",
+      "method": "GET",
+      "status": "Active",
+      "path": "/tools/unblur?urlxt="
+    }
+  ],
+  "api": [
+    {
+      "name": "Status Api",
+      "desc": "",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/status"
+    }
+  ]
+}
+}
