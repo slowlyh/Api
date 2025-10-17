@@ -64,6 +64,8 @@ module.exports = function (app) {
   });
 };
 
+```
+
 ## Scripts
 Check `package.json` for available scripts:
 ```json
