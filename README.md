@@ -43,42 +43,26 @@ This project is an Simple API service.
 - Middlewares and utilities are organized by folders inside `src`.
 
 ## Adding a New Endpoint
-Below is a generic pattern. Adjust to your router style (Express/Fastify/etc.).
+Below is a generic pattern. Adjust to your router style (Express).
 
 ### Express (example)
-```ts
-// src/routes/widgets.ts
-import {{ Router }} from "express";
-const router = Router();
+```js
+// src/general/new.js
+module.exports = function (app) {
 
-router.get("/", (req, res) => {{ res.json({{ ok: true }}); }});
-router.post("/", (req, res) => {{ /* create logic */ res.status(201).json({{ ok: true }}); }});
-
-export default router;
-```
-Register it:
-```ts
-// src/index.ts (or server.ts)
-import widgets from "./routes/widgets";
-app.use("/api/widgets", widgets);
-```
-
-### Fastify (example)
-```ts
-// src/routes/widgets.ts
-import type {{ FastifyInstance }} from "fastify";
-
-export default async function routes(fastify: FastifyInstance) {{
-  fastify.get("/", async (req, reply) => ({{ ok: true }}));
-  fastify.post("/", async (req, reply) => {{ reply.code(201); return {{ ok: true }}; }});
-}}
-```
-Register it:
-```ts
-// src/index.ts
-import routes from "./routes/widgets";
-app.register(routes, {{ prefix: "/api/widgets" }});
-```
+  app.get("/api/new", async (req, res) => {
+    try {
+      res.status(200).json({
+        status: true,
+        result: {
+        // result
+        },
+      });
+    } catch (error) {
+      res.status(500).send(`Error: ${error.message}`);
+    }
+  });
+};
 
 ## Scripts
 Check `package.json` for available scripts:
