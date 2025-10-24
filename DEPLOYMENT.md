@@ -78,20 +78,34 @@ pm2 monit
 ### 3. CI/CD Deployment
 
 #### GitHub Actions
-Automatic deployment on push to main branch.
+Automatic testing and deployment on push to main branch.
+
+**Workflows**:
+- `test.yml` - Run tests on all branches
+- `deploy.yml` - Deploy to production on main branch
 
 **Setup**:
-1. Add secrets to GitHub repository:
-   - `SERVER_HOST`
-   - `SERVER_USER`
-   - `SSH_PRIVATE_KEY`
+1. Workflows are already configured in `.github/workflows/`
+2. No lock file required (uses `npm install`)
+3. Push to any branch to run tests:
+```bash
+git push origin your-branch
+```
 
-2. Push to main branch:
+4. Push to main branch for deployment:
 ```bash
 git push origin main
 ```
 
-3. Check Actions tab for deployment status
+5. Check Actions tab for status
+
+**Optional: Configure Deployment**:
+Add secrets to GitHub repository for automated deployment:
+- `SERVER_HOST` - Your server IP/domain
+- `SERVER_USER` - SSH username
+- `SSH_PRIVATE_KEY` - SSH private key
+
+Then uncomment deployment step in `deploy.yml`
 
 ---
 
