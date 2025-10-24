@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link id="icon" rel="icon" href="/favicon.ico" type="image/x-icon">  
+  <title id="pageTitle">Documentation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="public/styles.css" />
+</head>
+
+<body data-theme="dark">
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-spinner-large"></div>
+    <div class="loading-text">Loading API...</div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" id="navLogo"></a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/docs" class="nav-link">Documentation</a></li>
+        <li><a href="/status" class="nav-link">Status</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="nav-toggle" id="navToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero" id="home">
+        <h1 class="hero-title" id="apiTitle"></h1>
+        <p class="hero-subtitle">
+          Next-generation API with random features for developers.
+        </p>
+      </section>
+
+      <!-- Search Section -->
+      <section class="search-section">
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="Search endpoints..."
+            autocomplete="off"
+          />
+          <button class="search-clear" id="searchClear">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- API Documentation -->
+      <section class="api-section" id="docs">
+        <div id="apiContent"></div>
+        <div class="no-results d-none" id="noResults">
+          <i class="fas fa-search"></i>
+          <h3>No endpoints found</h3>
+          <p>Try adjusting your search terms</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="apiResponseModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="modalTitle">API Endpoint</h3>
+          <p class="modal-subtitle" id="modalSubtitle">Test this endpoint</p>
+        </div>
+        <button class="btn-close" id="btnClose">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="endpoint-display">
+          <code class="endpoint-url" id="endpointUrl"></code>
+          <button class="copy-btn" id="copyBtn">
+            <i class="far fa-copy"></i>
+          </button>
+        </div>
+        
+        <form class="param-form" id="paramForm"></form>
+        
+        <button class="btn-primary" id="executeBtn" style="display: none;">
+          <i class="fas fa-play"></i>
+          Execute Request
+        </button>
+        
+        <div class="loading-spinner" id="loadingSpinner" style="display: none;"></div>
+        
+        <div class="response-container d-none" id="responseContainer">
+          <div class="response-content" id="responseContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-text" id="footerText">  2025 Powered by Hyuu</p>
+        <div class="social-links">
+          <a href="#" class="social-link" id="githubLink" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="social-link" id="whatsappLink" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="#" class="social-link" id="telegramLink" title="Telegram">
+            <i class="fab fa-telegram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="public/docs.js"></script>
+</body>
+</html>

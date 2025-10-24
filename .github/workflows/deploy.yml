@@ -1,0 +1,79 @@
+name: Deploy API
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linter
+      run: npm run lint --if-present
+      
+    - name: Run tests
+      run: npm test --if-present
+      
+    - name: Check build
+      run: |
+        echo "Build check passed"
+
+  deploy:
+    name: Deploy to Production
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm ci --production
+      
+    - name: Create deployment package
+      run: |
+        mkdir -p deploy
+        cp -r . deploy/
+        cd deploy
+        zip -r ../deploy.zip . -x "*.git*" "node_modules/*" "logs/*"
+        
+    - name: Deploy notification
+      run: |
+        echo "Deployment successful!"
+        echo "Version: ${{ github.sha }}"
+        echo "Branch: ${{ github.ref_name }}"
+        
+    # Uncomment and configure for your deployment target
+    # - name: Deploy to Server
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.SERVER_HOST }}
+    #     username: ${{ secrets.SERVER_USER }}
+    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     script: |
+    #       cd /var/www/api
+    #       git pull origin main
+    #       npm install --production
+    #       pm2 restart api

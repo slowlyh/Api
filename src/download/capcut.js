@@ -25,9 +25,10 @@ module.exports = function (app) {
         },
         body,
       });
-      console.log(await r.json());
+      const data = await r.json();
+      return data;
     } catch (e) {
-      console.log({ status: false, message: e.message });
+      throw new Error(e.message);
     }
   };
 

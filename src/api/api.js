@@ -14,10 +14,10 @@ module.exports = function (app) {
       res.status(200).json({
         status: true,
         result: {
-          status: "Aktif",
-          totalrequest: global.totalreq.toString(),
-          totalfitur: `${listRoutes()}`,
-          runtime: runtime(process.uptime()),
+          status: "Active",
+          reqTotal: global.reqTotal.toString(),
+          featureTotal: `${listRoutes()}`,
+          uptime: uptime(process.uptime()),
           domain: req.hostname,
         },
       });
