@@ -81,8 +81,14 @@ pm2 monit
 Automatic testing and deployment on push to main branch.
 
 **Workflows**:
-- `test.yml` - Run tests on all branches
-- `deploy.yml` - Deploy to production on main branch
+- `test.yml` - Run tests on all branches (Node 16, 18, 20)
+- `deploy.yml` - Test and create deployment package on main branch
+
+**What it does**:
+1. Runs tests on all Node versions
+2. Installs production dependencies
+3. Creates `deploy.zip` package (excludes git, node_modules, logs)
+4. Ready for manual deployment or automated SSH deploy
 
 **Setup**:
 1. Workflows are already configured in `.github/workflows/`
