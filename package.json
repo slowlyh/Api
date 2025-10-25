@@ -1,21 +1,41 @@
 {
-  "name": "takeshi-api",
-  "version": "1.0.0",
+  "name": "api",
+  "version": "2.1.0",
   "description": "A simple API documentation interface built with Express.js.",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node --no-deprecation index.js"
+    "start": "node --no-deprecation index.js",
+    "dev": "nodemon --no-deprecation index.js",
+    "docker:build": "docker build -t api .",
+    "docker:run": "docker run -p 1038:1038 api",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "test": "echo \"No tests specified\" && exit 0"
   },
-  "author": "takeshi",
+  "author": "Api",
   "license": "MIT",
   "dependencies": {
+    "archiver": "^7.0.1",
     "axios": "^1.6.8",
+    "body-parser": "^1.20.3",
+    "chalk": "^4.1.2",
     "cheerio": "^1.0.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.20.1",
+    "express-rate-limit": "^7.1.5",
     "form-data": "^4.0.2",
+    "helmet": "^7.1.0",
+    "moment-timezone": "^0.5.47",
+    "node-cache": "^5.1.2",
     "node-fetch": "^2.6.1",
-    "qs": "^6.14.0"
-  },
-  "devDependencies": {}
+    "prom-client": "^15.1.3",
+    "qs": "^6.14.0",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
 }

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link id="icon" rel="icon" href="/favicon.ico" type="image/x-icon">  
+  <title id="pageTitle">Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="public/styles.css" />
+  <style>
+    /* Additional styles for landing page */
+    .hero-landing {
+      min-height: calc(100vh - 70px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1rem;
+      position: relative;
+    }
+
+    .hero-landing::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: -1;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 128, 0.1));
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 2rem;
+      animation: slideDown 0.6s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-landing .hero-title {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-landing .hero-subtitle {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      animation: slideUp 0.8s ease-out 0.4s both;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: slideUp 0.8s ease-out 0.6s both;
+    }
+
+    .btn-cta {
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-cta-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      box-shadow: var(--glow);
+    }
+
+    .btn-cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    }
+
+    .btn-cta-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-cta-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .features-section {
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: white;
+      box-shadow: var(--glow);
+    }
+
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .stats-section {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero-landing .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-landing .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .btn-cta {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo" id="navLogo"></a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/docs" class="nav-link">Documentation</a></li>
+        <li><a href="/status" class="nav-link">Status</a></li>
+      </ul>
+      <div class="nav-controls">
+        <button class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="nav-toggle" id="navToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-landing">
+    <div class="container">
+      <div class="hero-badge">
+        <i class="fas fa-rocket"></i> Modern API Service
+      </div>
+      <h1 class="hero-title" id="apiTitle"></h1>
+      <p class="hero-subtitle">
+        Powerful RESTful API with AI integration, media downloaders, random content generators, and image processing tools. Built for developers who need reliable and fast API services.
+      </p>
+      <div class="cta-buttons">
+        <a href="/docs" class="btn-cta btn-cta-primary">
+          <i class="fas fa-book"></i>
+          View Documentation
+        </a>
+        <a href="/api/status" class="btn-cta btn-cta-secondary">
+          <i class="fas fa-chart-line"></i>
+          API Status
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">
+          Everything you need to build amazing applications with our comprehensive API
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3 class="feature-title">AI Integration</h3>
+          <p class="feature-description">
+            Access GPT OSS 120B for powerful AI chat capabilities with thinking mode enabled
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-download"></i>
+          </div>
+          <h3 class="feature-title">Media Downloaders</h3>
+          <p class="feature-description">
+            Download videos from CapCut, Facebook, Twitter, SnackVideo, and MediaFire
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <h3 class="feature-title">Random Content</h3>
+          <p class="feature-description">
+            Get random anime images, waifu pictures, and Blue Archive characters
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <h3 class="feature-title">Image Processing</h3>
+          <p class="feature-description">
+            AI-powered image unblur and upscale for enhanced image quality
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3 class="feature-title">Fast & Reliable</h3>
+          <p class="feature-description">
+            High-performance API with minimal latency and maximum uptime
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3 class="feature-title">Easy Integration</h3>
+          <p class="feature-description">
+            Simple RESTful endpoints with comprehensive documentation
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">API Statistics</h2>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="totalEndpoints">13+</div>
+          <div class="stat-label">API Endpoints</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number" id="totalRequests">0</div>
+          <div class="stat-label">Total Requests</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number" id="uptime">99.9%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-number" id="responseTime">&lt;100ms</div>
+          <div class="stat-label">Avg Response</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <p class="footer-text" id="footerText">© 2025 Powered by Hyuu</p>
+        <div class="social-links">
+          <a href="#" class="social-link" id="githubLink" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="social-link" id="whatsappLink" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="#" class="social-link" id="telegramLink" title="Telegram">
+            <i class="fab fa-telegram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="public/index.js"></script>
+</body>
+</html>

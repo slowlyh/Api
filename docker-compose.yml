@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "${PORT:-1038}:1038"
+    environment:
+      - NODE_ENV=production
+      - PORT=1038
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - RATE_LIMIT_WINDOW_MS=${RATE_LIMIT_WINDOW_MS:-60000}
+      - RATE_LIMIT_MAX_REQUESTS=${RATE_LIMIT_MAX_REQUESTS:-30}
+      - CORS_ORIGIN=${CORS_ORIGIN:-*}
+      - CACHE_TTL=${CACHE_TTL:-300}
+    volumes:
+      - ./logs:/app/logs
+      - ./metadata.json:/app/metadata.json:ro
+      - ./endpoints.json:/app/endpoints.json:ro
+    networks:
+      - api-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:1038/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Redis for caching (if needed in future)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: api-redis
+  #   restart: unless-stopped
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - api-network
+  #   command: redis-server --appendonly yes
+
+  # Optional: Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: api-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - api-network
+
+  # Optional: Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: api-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - api-network
+    depends_on:
+      - prometheus
+
+networks:
+  api-network:
+    driver: bridge
+
+volumes:
+  # redis-data:
+  prometheus-data:
+  grafana-data:

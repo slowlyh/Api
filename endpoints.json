@@ -1,11 +1,4 @@
 {
-  "creator": "@Hyuu",
-  "whatsapp": "https://wa.me/62895622412769",
-  "github": "https://github.com/hyuuxs",
-  "youtube": "https://t.me/hiyuux",
-  "favicon": "https://files.catbox.moe/flkgnb.jpg", 
-  "apititle": "Hyuu API",
-  "endpoints": {
   "openai": [
     {
       "name": "OSS",
@@ -81,17 +74,79 @@
       "desc": "Convert image to unblur",
       "method": "GET",
       "status": "Active",
-      "path": "/tools/unblur?urlxt="
+      "path": "/tools/unblur?url="
     }
   ],
   "api": [
     {
       "name": "Status Api",
-      "desc": "",
+      "desc": "Server status and statistics",
       "method": "GET",
       "status": "Active",
       "path": "/api/status"
+    },
+    {
+      "name": "Metadata",
+      "desc": "Get API metadata and creator information",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/metadata"
+    },
+    {
+      "name": "Endpoints List",
+      "desc": "Get list of all available endpoints",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/endpoints"
+    },
+    {
+      "name": "Health Check",
+      "desc": "Detailed health check with system metrics",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/health"
+    },
+    {
+      "name": "Cache Statistics",
+      "desc": "Get cache performance statistics",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/cache/stats"
+    },
+    {
+      "name": "Prometheus Metrics",
+      "desc": "Get Prometheus metrics for monitoring",
+      "method": "GET",
+      "status": "Active",
+      "path": "/metrics"
+    },
+    {
+      "name": "Realtime Statistics",
+      "desc": "Get realtime endpoint statistics and response times",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/stats/realtime"
+    },
+    {
+      "name": "Endpoint Stats",
+      "desc": "Get statistics for specific endpoint",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/stats/endpoint?path="
+    },
+    {
+      "name": "Top Endpoints",
+      "desc": "Get most requested endpoints",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/stats/top?limit=10"
+    },
+    {
+      "name": "Slowest Endpoints",
+      "desc": "Get endpoints with highest response time",
+      "method": "GET",
+      "status": "Active",
+      "path": "/api/stats/slowest?limit=10"
     }
   ]
-}
 }
