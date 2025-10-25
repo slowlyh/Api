@@ -53,10 +53,7 @@ jobs:
       
     - name: Create deployment package
       run: |
-        mkdir -p deploy
-        cp -r . deploy/
-        cd deploy
-        zip -r ../deploy.zip . -x "*.git*" "node_modules/*" "logs/*"
+        zip -r deploy.zip . -x "*.git*" "node_modules/*" "logs/*" "*.log" "deploy/*" "deploy.zip"
         
     - name: Deploy notification
       run: |

@@ -54,6 +54,11 @@ dist/
 build/
 *.tsbuildinfo
 
+# Deployment
+deploy/
+deploy.zip
+*.zip
+
 # Temporary files
 tmp/
 temp/
