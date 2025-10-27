@@ -10,7 +10,7 @@ module.exports = function (app) {
           whatsapp: config.whatsapp,
           github: config.github,
           youtube: config.youtube,
-          apiTitle: config.apiTitle,
+          apititle: config.apiTitle,  // Use lowercase to match metadata.json
           favicon: config.favicon
         }
       });

@@ -61,9 +61,10 @@ app.use((req, res, next) => {
 });
 
 // Static file serving
-app.use('/', express.static(path.join(__dirname, '/')));
-app.use('/', express.static(path.join(__dirname, 'page')));
-app.use('/src', express.static(path.join(__dirname, 'src')));
+const distPath = path.join(__dirname, 'dist');
+
+// Serve React static files
+app.use(express.static(distPath));
 
 // Set global variables
 global.apikey = config.apiKey || null;
@@ -111,34 +112,38 @@ fs.readdirSync(apiFolder).forEach((subfolder) => {
 console.log(chalk.bgHex('#90EE90').hex('#333').bold(' Load Complete! ✓ '));
 console.log(chalk.bgHex('#90EE90').hex('#333').bold(` Total Routes Loaded: ${totalRoutes} `));
 
-// Default home page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'page', 'index.html'));
-});
-
-// Default docs page
-app.get('/docs', (req, res) => {
-  res.sendFile(path.join(__dirname, 'page', 'docs.html'));
-});
-
-// Default status page
-app.get('/status', (req, res) => {
-  res.sendFile(path.join(__dirname, 'page', 'status.html'));
-});
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, 'page', '404.html'));
-});
-
-// 500 error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).sendFile(path.join(__dirname, 'page', '500.html'));
+// React SPA
+app.get('*', (req, res) => {
+  // Return 404 JSON for API routes that don't exist
+  if (req.path.startsWith('/api') || req.path.startsWith('/ai') || 
+      req.path.startsWith('/download') || req.path.startsWith('/random') || 
+      req.path.startsWith('/tools') || req.path.startsWith('/metrics')) {
+    return res.status(404).json({ 
+      status: false, 
+      error: 'Endpoint not found',
+      path: req.path 
+    });
+  }
+  
+  // Serve React app for all other routes
+  const indexPath = path.join(distPath, 'index.html');
+  
+  // Check if React build exists
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(503).json({ 
+      status: false, 
+      error: 'React build not found. Please run: npm run client:build',
+      hint: 'Build the React app first before starting the server'
+    });
+  }
 });
 
 // Start server
 app.listen(PORT, () => {
+  const reactBuildExists = fs.existsSync(path.join(distPath, 'index.html'));
+  
   console.log('\n' + chalk.cyan('═'.repeat(60)));
   console.log(chalk.bold.green('  🚀 API Server Started Successfully!'));
   console.log(chalk.cyan('═'.repeat(60)));
@@ -148,6 +153,7 @@ app.listen(PORT, () => {
   console.log(chalk.gray('  ├─ ') + chalk.white('Port: ') + chalk.yellow(PORT));
   console.log(chalk.gray('  ├─ ') + chalk.white('Environment: ') + chalk.yellow(config.nodeEnv));
   console.log(chalk.gray('  ├─ ') + chalk.white('Routes Loaded: ') + chalk.yellow(totalRoutes));
+  console.log(chalk.gray('  ├─ ') + chalk.white('Frontend: ') + (reactBuildExists ? chalk.green('React ✓') : chalk.red('Not Built ✗')));
   console.log(chalk.gray('  └─ ') + chalk.white('PID: ') + chalk.yellow(process.pid));
   console.log('');
   console.log(chalk.white('  🌐 Access URLs:'));
@@ -170,10 +176,20 @@ app.listen(PORT, () => {
   console.log(chalk.gray('  └─ ') + chalk.green('✓') + chalk.white(' Gzip Compression'));
   console.log('');
   console.log(chalk.cyan('═'.repeat(60)));
+  
+  if (!reactBuildExists) {
+    console.log('');
+    console.log(chalk.bgYellow.black(' ⚠️  WARNING '));
+    console.log(chalk.yellow('  React build not found! Run these commands:'));
+    console.log(chalk.gray('  1. ') + chalk.white('npm run client:install'));
+    console.log(chalk.gray('  2. ') + chalk.white('npm run client:build'));
+    console.log('');
+  }
+  
   console.log(chalk.gray('  Press CTRL+C to stop the server'));
   console.log(chalk.cyan('═'.repeat(60)) + '\n');
   
-  logger.info(`Server started on port ${PORT} (PID: ${process.pid})`);
+  logger.info(`Server started on port ${PORT} (PID: ${process.pid}) - Frontend: ${reactBuildExists ? 'React' : 'Not Built'}`);
 });
 
 module.exports = app;

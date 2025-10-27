@@ -27,30 +27,66 @@ Modern RESTful API with AI chat, media downloaders, and real-time monitoring.
 
 ```
 ├─ src/           # API endpoints (auto-loaded)
-├─ page/          # HTML pages (docs, status)
-├─ public/        # Static assets & scripts
-├─ config/        # Configuration
+├─ client/        # React frontend (Vite + React + TailwindCSS)
+│  ├─ src/        # React source code
+│  │  ├─ components/  # Reusable components
+│  │  ├─ pages/       # Page components
+│  │  └─ App.jsx      # Main app + routing
+│  └─ vite.config.js  # Vite configuration
+├─ config/        # Server configuration
 ├─ middlewares/   # Rate limiting, validation
 ├─ utils/         # Logger, cache, metrics
+├─ dist/          # React build output (served by Express)
 ├─ metadata.json  # API branding
 └─ endpoints.json # Endpoint definitions
 ```
 
+## 🎨 Frontend
+
+The project includes a modern **React frontend** built with:
+- ⚡ **Vite** - Lightning fast build tool
+- ⚛️ **React 18** - Latest React features  
+- 🎨 **TailwindCSS** - Utility-first CSS
+- 🧭 **React Router** - Client-side routing
+- 🎯 **Lucide Icons** - Beautiful icons
+- 📱 **Responsive** - Mobile-first design
+
+**React-only frontend** - The Express server serves the React SPA from `dist/` directory.
+
 ## 🚀 Quick Start
 
+### Production Setup
 ```bash
-# Install
+# 1. Install backend dependencies
 npm install
 
-# Configure
+# 2. Configure environment
 cp .env.example .env
 # Edit metadata.json with your info
 
-# Run
+# 3. Install React dependencies
+npm run client:install
+
+# 4. Build React app
+npm run client:build
+
+# 5. Start server
 npm start
 # → http://localhost:1038
+```
 
-# Docker
+### Development Mode
+```bash
+# Terminal 1: Start backend API
+npm run dev
+
+# Terminal 2: Start React dev server (with HMR)
+npm run client
+# → http://localhost:3000 (proxies to :1038)
+```
+
+### Docker
+```bash
 docker-compose up -d
 ```
 
@@ -224,10 +260,20 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for details.
 
 **Scripts**:
 ```bash
+# Backend
 npm start              # Start server
 npm run dev            # Dev mode (nodemon)
+
+# React Frontend
+npm run client:install # Install React dependencies
+npm run client         # Start React dev server (port 3000)
+npm run client:build   # Build React for production
+
+# Docker
 npm run docker:build   # Build image
 npm run docker:up      # Start compose
+npm run docker:down    # Stop compose
+npm run docker:logs    # View logs
 ```
 
 **Environment**:
