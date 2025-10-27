@@ -1,8 +1,8 @@
 {
-  "creator": "example",
-  "whatsapp": "https://example.com",
-  "github": "https://example.com",
-  "youtube": "https://example.com",
-  "favicon": "/public/favicon.ico",
-  "apititle": "waylay"
+  "creator": "Waylay",
+  "whatsapp": "https://wa.me/your-number",
+  "github": "https://github.com/slowlyh",
+  "youtube": "https://youtube.com/@your-channel",
+  "favicon": "/favicon.ico",
+  "apititle": "Waylay API"
 }
