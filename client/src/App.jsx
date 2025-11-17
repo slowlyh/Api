@@ -33,7 +33,6 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col bg-dark-bg">
-        <Navbar metadata={metadata} />
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home metadata={metadata} />} />
@@ -42,7 +41,6 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <Footer metadata={metadata} />
       </div>
     </Router>
   )
