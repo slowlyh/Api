@@ -22,7 +22,7 @@ try {
 
 const config = {
   // Server Configuration
-  port: process.env.PORT || 1038,
+  port: process.env.PORT || 1041,
   nodeEnv: process.env.NODE_ENV || 'development',
   
   // Creator Information

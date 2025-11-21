@@ -81,60 +81,7 @@ const Home = ({ metadata }) => {
               {metadata.apititle || 'API Service'}
             </button>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-4">
-              <button
-                onClick={() => navigateTo('/docs')}
-                className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors"
-              >
-                <Book className="w-4 h-4" />
-                Documentation
-              </button>
-              <button
-                onClick={() => navigateTo('/status')}
-                className="flex items-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 rounded-lg font-medium transition-colors"
-              >
-                <TrendingUp className="w-4 h-4" />
-                API Status
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-slate-800 rounded-lg transition-colors"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-slate-800">
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    navigateTo('/docs')
-                    setMobileMenuOpen(false)
-                  }}
-                  className="flex items-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg font-medium transition-colors"
-                >
-                  <Book className="w-4 h-4" />
-                  Documentation
-                </button>
-                <button
-                  onClick={() => {
-                    navigateTo('/status')
-                    setMobileMenuOpen(false)
-                  }}
-                  className="flex items-center gap-2 px-4 py-3 bg-slate-800 hover:bg-slate-700 rounded-lg font-medium transition-colors"
-                >
-                  <TrendingUp className="w-4 h-4" />
-                  API Status
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </nav>
 

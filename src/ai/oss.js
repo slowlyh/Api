@@ -83,7 +83,7 @@ module.exports = function (app) {
 
       res.status(200).json({
         status: true,
-        result: result,
+        result: result.content,
       });
     } catch (error) {
       res.json({ status: false, error: error.message });
